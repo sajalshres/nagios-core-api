@@ -11,7 +11,7 @@ README = (HERE / "README.md").read_text()
 setup(
     name="nagios-core-api",
     packages=find_packages(),
-    version="0.1.0",
+    version="0.1.1",
     license="MIT",
     description="A python wrapper for querying nagios core monitoring",
     long_description=README,
