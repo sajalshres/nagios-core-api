@@ -1,5 +1,5 @@
 # nagios-core-api
-A python wrapper for nagios core monitoring
+A python wrapper for querying nagios core monitoring
 
 ## Note:
 This module is *work-in-progress*.
