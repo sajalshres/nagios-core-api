@@ -15,6 +15,6 @@ with Nagios(
     username="nagiosuser",
     password="nagiospassword",
 ) as client:
-    response = client.status_json_cgi.service_list(hostname="machine1")
+    response = client.status.service_list(hostname="machine1")
     print(response)
 ```
