@@ -1,6 +1,8 @@
 import logging
-from typing import Any
 import requests
+from urllib.parse import urlencode
+
+from .utils import url_join
 
 logging.getLogger("nagios").addHandler(logging.NullHandler())
 
@@ -15,6 +17,10 @@ class RestClient:
         self._username = username
         self._password = password
         self._session = requests.Session()
+        self._create_session(username=self._username, password=self._password)
+
+        if not self.verify:
+            requests.packages.urllib3.disable_warnings()
 
     def _create_session(self, username, password):
         self._session.auth = (username, password)
@@ -47,8 +53,10 @@ class RestClient:
         params=None,
         headers=None,
     ):
-        # TODO: process url by path
-        url = self.url
+        url = url_join(url=self.url, path=path)
+
+        if params:
+            url += "?" + urlencode(params)
 
         response = self._session.request(
             method=method,
@@ -102,6 +110,8 @@ class RestClient:
 
         if not response.text:
             return None
+
+        print(response)
 
         return self._response_handler(response)
 

@@ -1,13 +1,22 @@
-from .rest_client import RestClient
-from .cgi import ArchiveJsonCgi, ObjectJsonCgi, StatusJsonCgi
+from nagios.rest_client import RestClient
+from nagios.cgi import ArchiveJsonCgi, ObjectJsonCgi, StatusJsonCgi
 
 
 class Nagios:
     def __init__(self, url, username, password) -> None:
-        self.rest_client = RestClient(url, username, password)
+        self.url = url
+        self.rest_client = RestClient(self.url, username, password)
         self.archive_json_cgi = ArchiveJsonCgi(rest_client=self.rest_client)
         self.object_json_cgi = ObjectJsonCgi(rest_client=self.rest_client)
         self.status_json_cgi = StatusJsonCgi(rest_client=self.rest_client)
+    
+    @property
+    def url(self):
+        return self._url
+    
+    @url.setter
+    def url(self, value):
+        self._url = f"{value}/cgi-bin"
 
     def __enter__(self):
         return self

@@ -1,4 +1,6 @@
 from .base import BaseCgi
 
 class ArchiveJsonCgi(BaseCgi):
-    pass
+    def __init__(self, rest_client) -> None:
+        super().__init__(rest_client)
+        self.path = "archivejson.cgi"
